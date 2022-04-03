@@ -10,7 +10,10 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/login',
@@ -28,6 +31,19 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+
+router.beforeEach((to, from, next) => {
+  let token = localStorage.getItem('token')
+  let authenticated = to.matched.some(record => record.meta.requiresAuth)
+  if(authenticated && !token) {
+    next('/login')
+  }else if(!authenticated && token) {
+    next('/')
+  }else {
+    next()
+  }
 })
 
 export default router

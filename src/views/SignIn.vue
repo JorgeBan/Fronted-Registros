@@ -13,7 +13,7 @@
       <b-alert show variant="danger" v-if="error">{{error_msg}}</b-alert>
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="#">No tienes cuenta? Registrate</a>
+      <a class="underlineHover" href="/register">No tienes cuenta? Registrate</a>
     </div>
 
   </div>
@@ -48,7 +48,10 @@ export default {
                   this.error_msg = data.data.msg
                  
                 }else{
+                  localStorage.setItem('token', data.data.token)
+                  localStorage.setItem('user', data.data.data.name)
                   console.log(data.data.msg)
+                  this.$router.push('/')
                 }
             })
     }

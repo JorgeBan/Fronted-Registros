@@ -13,7 +13,7 @@
       <b-alert show variant="danger" v-if="error">{{error_msg}}</b-alert>
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="#">Tienes una cuenta? Inicia Sesion</a>
+      <a class="underlineHover" href="/login">Tienes una cuenta? Inicia Sesion</a>
     </div>
   </div>
 </div>
@@ -51,6 +51,8 @@ export default {
                   this.error = true,
                   this.error_msg = data.data.msg
                 }else{
+                  localStorage.setItem('token', data.data.token)
+                  localStorage.setItem('user', data.data.data.name)
                   console.log(data.data.msg)
                 }
             })
