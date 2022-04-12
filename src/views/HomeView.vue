@@ -28,12 +28,19 @@ export default {
 
   mounted: function (){
     this.username = localStorage.getItem('user')
+    if(!localStorage.getItem('token')){
+      this.$router.push('/login')
+    }else if(localStorage.getItem('status') == 'UNVERIFIED'){
+      this.$router.push('/confirm')
+    }
+
   },
 
   methods: {
     signOut() {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
+      localStorage.removeItem('status')
       this.$router.push('/login')
     }
   }

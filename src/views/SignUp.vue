@@ -36,6 +36,11 @@ export default {
         }
     },
 
+    mounted: function (){
+        if(localStorage.getItem('token')){
+            this.$router.push('/')
+        }
+    },
     methods:{
         signUp(){
             let url = "http://localhost:3000/api/user"
@@ -53,8 +58,9 @@ export default {
                 }else{
                   localStorage.setItem('token', data.data.token)
                   localStorage.setItem('user', data.data.data.name)
+                  localStorage.setItem('status', data.data.data.status)
                   console.log(data.data.msg)
-                  this.$router.push('/')
+                  this.$router.push('/confirm')
 
                 }
             })
